@@ -76,40 +76,38 @@ class _DiceGameState extends State<DiceGame> {
             ],
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(
-                "assets/diceeLogo.png",
-                width: MediaQuery.of(context).size.width * .8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset(
-                    dice1,
-                    width: MediaQuery.of(context).size.width * .2,
-                  ),
-                  Image.asset(
-                    dice2,
-                    width: MediaQuery.of(context).size.width * .2,
-                  ),
-                ],
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade900,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 38),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset(
+              "assets/diceeLogo.png",
+              width: MediaQuery.of(context).size.width * .8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  dice1,
+                  width: MediaQuery.of(context).size.width * .2,
                 ),
-                onPressed: () => getRandomNumbers(),
-                child: const Text(
-                  "Roll",
+                Image.asset(
+                  dice2,
+                  width: MediaQuery.of(context).size.width * .2,
                 ),
+              ],
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.shade900,
+                foregroundColor: Colors.white,
+                textStyle: TextStyle(fontSize: 38),
               ),
-            ],
-          ),
+              onPressed: () => getRandomNumbers(),
+              child: const Text(
+                "Roll",
+              ),
+            ),
+          ],
         ),
       ),
     );
