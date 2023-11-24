@@ -94,7 +94,6 @@ class KeyNote extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              print("Test");
               player.play(AssetSource("${keyNote.name}.wav"));
             },
             child: Center(
