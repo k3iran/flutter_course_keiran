@@ -14,3 +14,18 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+#wywoływana tylko raz na świeżo tworzony branchu
+git remote add upstream https://github.com/LynxLynxx/flutter_course.git
+
+#pobiera najnowsze zmiany z repozytorium
+git fetch upstream
+
+#pobieranie najnowszysch zmian z branch main
+git checkout main
+
+#najnowsze zmiany z repozytorium do branch main
+git merge upstream/main
+
+#przenosi zmiany do repozytorium online
+git push 
