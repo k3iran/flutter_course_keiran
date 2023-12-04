@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_course/models/todo_model.dart';
 import 'package:flutter_course/widgets/todo_bottom_sheet.dart';
 import 'package:flutter_course/widgets/todo_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,29 +44,64 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<TodoModel> todos = [];
   int todoNumber = 0;
+  late SharedPreferences pref;
+
+  @override
+  void initState() {
+    loadSharedPreferences();
+    super.initState();
+  }
+
+  void loadSharedPreferences() async {
+    pref = await SharedPreferences.getInstance();
+    loadTodo();
+  }
+
+  Future<void> saveTodo() async {
+    List<String> todoStringList =
+        todos.map((e) => jsonEncode(e.toJson())).toList();
+
+    await pref.setStringList("todo", todoStringList);
+  }
+
+  Future<void> loadTodo() async {
+    List<String>? todoStringList = pref.getStringList("todo");
+    print(todoStringList);
+
+    if (todoStringList == null) return;
+
+    setState(() {
+      todos = todoStringList
+          .map((e) => TodoModel.fromJson(json.decode(e)))
+          .toList();
+    });
+  }
 
   void addTodo() {
-    // setState(() {
-    //   todos.add(TodoModel(text: "Todo numer: $todoNumber"));
-    // });
-    // todoNumber++;
     showModalBottomSheet(
         context: context, builder: (context) => TodoBottomSheet()).then(
-      (value) => print(value),
+      (value) async {
+        setState(() {
+          todos.add(TodoModel(text: value));
+        });
+        await saveTodo();
+      },
     );
   }
 
-  void removeTodo(TodoModel todo) {
+  void removeTodo(TodoModel todo) async {
     setState(() {
       todos.removeWhere((element) => element.text == todo.text);
       // może warunek usunięcia powinien być inny, przekazywać index
     });
+    await saveTodo();
   }
 
-  void onTodoChange(TodoModel todo) {
+  void onTodoChange(TodoModel todo) async {
     setState(() {
       todo.isDone = !todo.isDone;
     });
+    await saveTodo();
   }
 
   @override

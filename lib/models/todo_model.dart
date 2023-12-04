@@ -6,4 +6,15 @@ class TodoModel {
     required this.text,
     this.isDone = false,
   });
+
+  factory TodoModel.fromJson(Map<String, dynamic> json) =>TodoModel(
+    text: json["text"],
+    isDone: json["isDone"],
+    );
+  
+  Map<String, dynamic> toJson() => {
+    "text": text,
+    "isDone": isDone,
+  };
+
 }
